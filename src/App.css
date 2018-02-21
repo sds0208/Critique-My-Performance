@@ -1,0 +1,20 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  text-align: left;
+  background-color: limegreen;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+  font-family: 'Rock Salt';
+}
+
+.App-intro {
+  font-size: large;
+  font-family: 'Kavivanar';
+}

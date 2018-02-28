@@ -1,30 +1,18 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import SignUp from './SignUp';
+import Studio from './Studio';
 
 class Landing extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="Landing">
-        <video autoPlay muted loop id="myVideo">
-          <source src="assets/Playing_Acoustic_Guitar.mp4" type="video/mp4" />
-        </video>
-        <div className="sign-up">
-          <p>Sign up today to get feedback from musicians around the world! Already have an account? <Link to='/user'>Log in.</Link></p>
-          <form className="sign-up-form">
-            Email:
-            <input type="text" /><br></br>
-            Username:
-            <input type="text" /><br></br>
-            Password:
-            <input type="text" /><br></br>
-            Confirm Password:
-            <input type="text" />
-            <button><Link to='/user'>Submit</Link></button>
-          </form>
-        </div>
-        <p className="App-intro">
-          A community of musicians helping musicians.
-        </p>
+        {!this.props.firebase.auth().currentUser ?
+          <SignUp firebase={this.props.firebase} setUser={this.props.setUser.bind(this)} user={this.props.user}/>
+          : null }
       </div>
     );
   }

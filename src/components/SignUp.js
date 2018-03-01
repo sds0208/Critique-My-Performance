@@ -6,12 +6,9 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
-      newDisplayName: '',
       newEmail: '',
       newPassword: '',
       newPasswordConfirmation: ''};
-      /*this.handleDisplayNameInput = this.handleDisplayNameInput.bind(this);*/
       this.handleEmailInput = this.handleEmailInput.bind(this);
       this.handlePasswordInput = this.handlePasswordInput.bind(this);
       this.handlePasswordConfirmation = this.handlePasswordConfirmation.bind(this);
@@ -19,15 +16,10 @@ class SignUp extends Component {
   }
 
   componentDidMount() {
-      this.props.firebase.auth().onAuthStateChanged( user => {
+      this.props.firebase.auth().onAuthStateChanged(user => {
       this.props.setUser(user);
     });
   }
-
-  /*handleDisplayNameInput(event) {
-    event.preventDefault();
-    this.setState({ newDisplayName: event.target.value});
-  }*/
 
   handleEmailInput(event) {
     event.preventDefault();
@@ -62,8 +54,7 @@ class SignUp extends Component {
         this.setState({ newDisplayName: '', newEmail: '', newPassword: '', newPasswordConfirmation: ''});
       }*/
 
-      console.log(this.state);
-      console.log(this.props.firebase.auth());
+
     }
 
 
@@ -78,8 +69,6 @@ class SignUp extends Component {
           <form onSubmit={(event) => this.createUser(event)} className="sign-up-form">
             Email:
             <input type="text" value={this.state.newEmail} onChange={this.handleEmailInput}/>
-            {/*Username:
-            <input type="text" value={this.state.newDisplayName} onChange={this.handleDisplayNameInput}/>*/}
             Password:
             <input type="text" value={this.state.newPassword} onChange={this.handlePasswordInput}/>
             Confirm Password:

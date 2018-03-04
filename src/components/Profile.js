@@ -73,10 +73,8 @@ class Profile extends Component {
             null }
         </div> :
         <p>Please sign in.</p>
-
-
       }
-
+      <div>Performances will go here</div>
       </div>
     );
   }

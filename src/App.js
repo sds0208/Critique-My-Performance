@@ -46,7 +46,7 @@ class App extends Component {
           {!firebase.auth().currentUser ?
             <Login firebase={firebase} /> :
             <div className="sign-in">
-              <p>Signed in as {this.state.user.email}</p>
+              <p>Signed in as {this.state.user.displayName ? this.state.user.displayName : this.state.user.email}</p>
               <button onClick={this.signOut}>Sign Out</button>
               <Link to={'/profile'}>My Profile</Link>
               <Link to={'/studio'}>The Studio</Link>

@@ -81,3 +81,17 @@ Link {
   font-size: 1.5rem;
   font-family: 'Rock Salt';
 }
+
+.Studio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.video {
+  border: 10px solid limegreen;
+  box-shadow: 0 0 12.5px;
+  text-align: center;
+  margin-top: 25%;
+}

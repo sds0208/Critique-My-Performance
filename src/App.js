@@ -45,16 +45,22 @@ class App extends Component {
           <h1 className="App-title">Critique My Performance</h1>
           {!firebase.auth().currentUser ?
             <Login firebase={firebase} /> :
-            <div className="sign-in">
-              <p>Signed in as {this.state.user.displayName ? this.state.user.displayName : this.state.user.email}</p>
-              <button onClick={this.signOut}>Sign Out</button>
-              <Link to={'/profile'}>My Profile</Link>
-              <Link to={'/studio'}>The Studio</Link>
-            </div>
+
+              <div className="links">
+                <Link className="link" to={'/profile'}>My Profile</Link>
+                <Link className="link" to={'/studio'}>The Studio</Link>
+              </div>
+
           }
         </header>
+
+          <div className="name-sign-out">
+            <p>Signed in as {this.state.user.displayName ? this.state.user.displayName : this.state.user.email}</p>
+            <button onClick={this.signOut}>Sign Out</button>
+          </div>
+      
         <Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user}/>
-        <Route exact path="/studio" component={Studio} />
+        <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user}/> )} />
         <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user}/> )} />
       </div>
     );

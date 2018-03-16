@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', email: '', usernameEdit: false, emailEdit: false };
+    this.state = { username: '', email: '', usernameEdit: false, emailEdit: false, iframes: [], currentUserIframes: [] };
+    this.iframesRef = this.props.firebase.database().ref('iframes');
     this.handleUsername = this.handleUsername.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
     this.addUsername = this.addUsername.bind(this);
     this.editEmail = this.editEmail.bind(this);
     this.showUsernameEdit = this.showUsernameEdit.bind(this);
     this.showEmailEdit = this.showEmailEdit.bind(this);
+  }
+
+  componentDidMount() {
+    this.iframesRef.on('child_added', snapshot => {
+      const iframe = snapshot.val();
+      iframe.key = snapshot.key;
+      this.setState({ iframes: this.state.iframes.concat( iframe ), currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
+    });
   }
 
   handleUsername(event) {
@@ -42,7 +52,7 @@ class Profile extends Component {
 
   render() {
     return(
-      <div className="profile">
+      <div className="Profile">
       {this.props.user ?
         <div>
           {this.props.user.displayName ?
@@ -50,7 +60,7 @@ class Profile extends Component {
               <div>Username: {this.props.user.displayName}</div>
               <button onClick={() => this.showUsernameEdit()}>Edit</button>
               {this.state.usernameEdit ?
-                <form onSubmit={() => this.addUsername(this.state.username)}>
+                <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
                   <input type="text" onChange={this.handleUsername}></input>
                   <button type="submit">Add</button>
                 </form> : null
@@ -58,7 +68,7 @@ class Profile extends Component {
             </div> :
             <div>
               <div>Username: No username yet.</div>
-              <form onSubmit={() => this.addUsername(this.state.username)}>
+              <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
                 <input type="text" onChange={this.handleUsername}></input>
                 <button type="submit">Add</button>
               </form>
@@ -66,7 +76,7 @@ class Profile extends Component {
           <div>Email: {this.props.user.email}</div>
           <button onClick={() => this.showEmailEdit()}>Edit</button>
           {this.state.emailEdit ?
-            <form onSubmit={() => this.editEmail(this.state.email)}>
+            <form className="profile-form" onSubmit={() => this.editEmail(this.state.email)}>
               <input type="text" onChange={this.handleEmail}></input>
               <button type="submit">Add</button>
             </form> :
@@ -74,7 +84,13 @@ class Profile extends Component {
         </div> :
         <p>Please sign in.</p>
       }
-      <div>Performances will go here</div>
+      {this.state.currentUserIframes.map(iframe =>
+        <div key={iframe.key} className="video">
+            <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>
+            {ReactHtmlParser(iframe.iframe)}
+            <div>Critique will go here.</div>
+        </div>
+      )}
       </div>
     );
   }

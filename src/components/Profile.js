@@ -5,12 +5,14 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', email: '', usernameEdit: false, emailEdit: false, iframes: [], currentUserIframes: [] };
+    this.state = { username: '', email: '', photo: '', usernameEdit: false, emailEdit: false, photoEdit: false, iframes: [], currentUserIframes: [] };
     this.iframesRef = this.props.firebase.database().ref('iframes');
     this.handleUsername = this.handleUsername.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
+    //this.handlePhoto = this.handlePhoto.bind(this);
     this.addUsername = this.addUsername.bind(this);
     this.editEmail = this.editEmail.bind(this);
+    //this.editPhoto = this.editPhoto.bind(this);
     this.showUsernameEdit = this.showUsernameEdit.bind(this);
     this.showEmailEdit = this.showEmailEdit.bind(this);
   }
@@ -21,6 +23,7 @@ class Profile extends Component {
       iframe.key = snapshot.key;
       this.setState({ iframes: this.state.iframes.concat( iframe ), currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
     });
+    //console.log(this.props.user.photoUrl);
   }
 
   handleUsername(event) {
@@ -33,6 +36,11 @@ class Profile extends Component {
     this.setState({ email: event.target.value });
   }
 
+  /*handlePhoto(event) {
+    event.preventDefault();
+    this.setState({ photo: event.target.value });
+  }*/
+
   editEmail(email) {
     console.log(email);
     this.props.firebase.auth().currentUser.updateEmail(email);
@@ -42,13 +50,21 @@ class Profile extends Component {
     this.props.firebase.auth().currentUser.updateProfile({displayName: username});
   }
 
+  /*editPhoto(photo) {
+    this.props.firebase.auth().currentUser.updateProfile({photoURL: photo});
+  }*/
+
   showUsernameEdit() {
-    this.setState({ usernameEdit: true });
+    this.state.usernameEdit ? this.setState({ usernameEdit: false }) : this.setState({ usernameEdit: true });
   }
 
   showEmailEdit() {
-    this.setState({ emailEdit: true });
+    this.state.emailEdit ? this.setState({ emailEdit: false }) : this.setState({ emailEdit: true });
   }
+
+  /*showPhotoEdit() {
+    this.setState({ photoEdit: true });
+  }*/
 
   render() {
     return(
@@ -59,29 +75,48 @@ class Profile extends Component {
           {this.props.user.displayName ?
             <div>
               <div className="profile-info">Username: {this.props.user.displayName}</div>
-              <button onClick={() => this.showUsernameEdit()}>Edit</button>
+              <button className="button" onClick={() => this.showUsernameEdit()}>Edit</button>
               {this.state.usernameEdit ?
                 <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
-                  <input type="text" onChange={this.handleUsername}></input>
-                  <button type="submit">Add</button>
+                  <input className="profile-input" type="text" onChange={this.handleUsername}></input>
+                  <button className="button" type="submit">Submit</button>
                 </form> : null
               }
             </div> :
             <div>
               <div>Username: No username yet.</div>
               <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
-                <input type="text" onChange={this.handleUsername}></input>
-                <button type="submit">Add</button>
+                <input className="profile-input" type="text" onChange={this.handleUsername}></input>
+                <button className="button" type="submit">Submit</button>
               </form>
             </div>}
+            {/*{this.props.user.photoUrl ?
+              <div>
+                <div className="profile-info">Username: {this.props.user.photoUrl}</div>
+                <button onClick={() => this.showPhotoEdit()}>Edit</button>
+                {this.state.photoEdit ?
+                  <form className="profile-form" onSubmit={() => this.editPhoto(this.state.photo)}>
+                    <input type="text" onChange={this.handlePhoto}></input>
+                    <button type="submit">Add</button>
+                  </form> : null
+                }
+              </div> :
+              <div>
+                <div>Photo: No photo yet.</div>
+                <form className="profile-form" onSubmit={() => this.editPhoto(this.state.photo)}>
+                  <input type="text" onChange={this.editPhoto}></input>
+                  <button type="submit">Add</button>
+                </form>
+              </div>}*/}
           <div className="profile-info">Email: {this.props.user.email}</div>
-          <button onClick={() => this.showEmailEdit()}>Edit</button>
+          <button className="button" onClick={() => this.showEmailEdit()}>Edit</button>
           {this.state.emailEdit ?
             <form className="profile-form" onSubmit={() => this.editEmail(this.state.email)}>
-              <input type="text" onChange={this.handleEmail}></input>
-              <button type="submit">Add</button>
+              <input className="profile-input" type="text" onChange={this.handleEmail}></input>
+              <button className="button" type="submit">Submit</button>
             </form> :
             null }
+
         </div> :
         <p>Please sign in.</p>
       }
@@ -90,7 +125,7 @@ class Profile extends Component {
         <div key={iframe.key} className="video">
             <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>
             {ReactHtmlParser(iframe.iframe)}
-            <div>Critique will go here.</div>
+            <div>Critique will go here</div>
         </div>
       )}
       </div>

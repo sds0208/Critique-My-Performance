@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-
+import Critique from './Critique';
 
 class Studio extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class Studio extends Component {
     this.iframesRef = this.props.firebase.database().ref('iframes');
     this.postVideo = this.postVideo.bind(this);
     this.handleIframe = this.handleIframe.bind(this);
+    this.pushCritique = this.pushCritique.bind(this);
   }
 
   componentDidMount() {
@@ -28,12 +29,17 @@ class Studio extends Component {
         timeAdded: [date.toLocaleDateString(), date.toLocaleTimeString()],
         userUID: this.props.user.uid,
         userName: this.props.user.displayName,
-        userEmail: this.props.user.email
+        userEmail: this.props.user.email,
+        critiques: []
       });
     } else {
       alert("This is not a valid YouTube or SOUNDCLOUD iframe. Please try again.");
     }
+  }
 
+  pushCritique(content) {
+    const date = new Date();
+    this.iframesRef.push({ critiques: {content: content, timeAdded: [date.toLocaleDateString(), date.toLocaleTimeString()], addedBy: this.props.user.displayName || this.props.user.email} });
   }
 
   handleIframe(event) {
@@ -54,19 +60,18 @@ class Studio extends Component {
             <li>Copy and paste the iframe here:</li>
           </ul>
           <form onSubmit={() => this.postVideo()}>
-            <input type="text" value={this.state.newIframe} onChange={this.handleIframe}></input>
-            <button type="submit">Post</button>
+            <input className="profile-input" ype="text" value={this.state.newIframe} onChange={this.handleIframe}></input>
+            <button className="button" type="submit">Post</button>
           </form>
-
           {this.state.iframes.map(iframe =>
             <div key={iframe.key} className="video">
               <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
               {ReactHtmlParser(iframe.iframe)}
-              <div>Critique will go here.</div>
+              <Critique pushCritique={this.pushCritique.bind(this)} />
             </div>
           )}
 
-        </div> : null 
+        </div> : null
     );
   }
 }

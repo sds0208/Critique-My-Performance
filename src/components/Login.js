@@ -49,7 +49,7 @@ class Login extends Component {
             <input type="text" value={this.state.email} onChange={this.handleEmail}/>
             Password:
             <input type="text" value={this.state.password} onChange={this.handlePassword}/>
-            <button type="submit"><Link id="submit-link" to='/'>Sign In</Link></button>
+            <button className="button" type="submit"><Link id="submit-link" to='/'>Sign In</Link></button>
           </form>
         </div>
       </div>

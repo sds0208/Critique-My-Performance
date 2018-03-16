@@ -73,7 +73,7 @@ class SignUp extends Component {
             <input type="text" value={this.state.newPassword} onChange={this.handlePasswordInput}/>
             Confirm Password:
             <input type="text" value={this.state.newPasswordConfirmation} onChange={this.handlePasswordConfirmation}/>
-            <button type="submit"><Link id="submit-link" to='/'>Sign Up</Link></button>
+            <button className="button" type="submit"><Link id="submit-link" to='/'>Sign Up</Link></button>
           </form>
 
         </div>

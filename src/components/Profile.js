@@ -54,10 +54,11 @@ class Profile extends Component {
     return(
       <div className="Profile">
       {this.props.user ?
-        <div>
+        <div className="edit-profile">
+          <h2>Profile</h2>
           {this.props.user.displayName ?
             <div>
-              <div>Username: {this.props.user.displayName}</div>
+              <div className="profile-info">Username: {this.props.user.displayName}</div>
               <button onClick={() => this.showUsernameEdit()}>Edit</button>
               {this.state.usernameEdit ?
                 <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
@@ -73,7 +74,7 @@ class Profile extends Component {
                 <button type="submit">Add</button>
               </form>
             </div>}
-          <div>Email: {this.props.user.email}</div>
+          <div className="profile-info">Email: {this.props.user.email}</div>
           <button onClick={() => this.showEmailEdit()}>Edit</button>
           {this.state.emailEdit ?
             <form className="profile-form" onSubmit={() => this.editEmail(this.state.email)}>
@@ -84,6 +85,7 @@ class Profile extends Component {
         </div> :
         <p>Please sign in.</p>
       }
+      <h2>My Performances</h2>
       {this.state.currentUserIframes.map(iframe =>
         <div key={iframe.key} className="video">
             <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>

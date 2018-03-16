@@ -43,28 +43,30 @@ class Studio extends Component {
 
   render() {
     return (
-      <div className="Studio">
-        <h3>Post Your Performance</h3>
-        <ul>
-          <li>Create a YouTube Video or SOUNDCLOUD Track.</li>
-          <li>Click the Share button at the bottom of the video or track.</li>
-          <li>Select the "Embed" option.</li>
-          <li>Copy and paste the iframe here:</li>
-        </ul>
-        <form onSubmit={() => this.postVideo()}>
-          <input type="text" value={this.state.newIframe} onChange={this.handleIframe}></input>
-          <button type="submit">Post</button>
-        </form>
+      this.props.user ?
+        <div className="Studio">
+          <h1>The Studio</h1>
+          <p>To post your performance:</p>
+          <ul>
+            <li>Create a YouTube Video or SOUNDCLOUD Track.</li>
+            <li>Click the Share button at the bottom of the video or track.</li>
+            <li>Select the "Embed" option.</li>
+            <li>Copy and paste the iframe here:</li>
+          </ul>
+          <form onSubmit={() => this.postVideo()}>
+            <input type="text" value={this.state.newIframe} onChange={this.handleIframe}></input>
+            <button type="submit">Post</button>
+          </form>
 
-        {this.state.iframes.map(iframe =>
-          <div key={iframe.key} className="video">
-            <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
-            {ReactHtmlParser(iframe.iframe)}
-            <div>Critique will go here.</div>
-          </div>
-        )}
+          {this.state.iframes.map(iframe =>
+            <div key={iframe.key} className="video">
+              <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
+              {ReactHtmlParser(iframe.iframe)}
+              <div>Critique will go here.</div>
+            </div>
+          )}
 
-      </div>
+        </div> : null 
     );
   }
 }

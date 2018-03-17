@@ -96,6 +96,10 @@
   text-decoration: none;
 }
 
+.no-show {
+  display: none;
+}
+
 Link {
   text-decoration: none;
 }

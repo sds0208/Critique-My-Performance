@@ -6,11 +6,15 @@ import Critique from './Critique';
 class Studio extends Component {
   constructor(props) {
     super(props);
-    this.state = { newIframe: '', iframes: [], activeIframe: '' };
+    this.state = { newIframe: '', iframes: [], activeIframe: '', critiques: [], content: '', activeIframeCritiques: [] };
     this.iframesRef = this.props.firebase.database().ref('iframes');
+    this.critiquesRef = this.props.firebase.database().ref('critiques');
     this.postVideo = this.postVideo.bind(this);
     this.handleIframe = this.handleIframe.bind(this);
     this.activateIframe = this.activateIframe.bind(this);
+    this.handleCritique = this.handleCritique.bind(this);
+    this.pushCritique = this.pushCritique.bind(this);
+    this.filterAndDisplayCritiques = this.filterAndDisplayCritiques.bind(this);
   }
 
   componentDidMount() {
@@ -18,6 +22,12 @@ class Studio extends Component {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
       this.setState({ iframes: this.state.iframes.concat( iframe ) });
+    });
+
+    this.critiquesRef.on('child_added', snapshot => {
+      const critique = snapshot.val();
+      critique.key = snapshot.key;
+      this.setState({ critiques: this.state.critiques.concat( critique ) });
     });
   }
 
@@ -41,9 +51,31 @@ class Studio extends Component {
     this.setState({ newIframe: event.target.value.replace("></iframe>", "/>") });
   }
 
+  handleCritique(event) {
+    event.preventDefault();
+    this.setState({ content: event.target.value });
+    console.log(this.state.content);
+  }
+
+  pushCritique() {
+    console.log(this.state.content);
+    const date = new Date();
+    this.critiquesRef.push({
+      content: this.state.content,
+      timeAdded: [date.toLocaleDateString(), date.toLocaleTimeString()],
+      iframeID: this.state.activeIframe.key,
+      addedBy: [this.props.user.displayName, this.props.user.email, this.props.user.uid]
+    });
+  }
+
   activateIframe(iframe) {
-    this.state.activeIframe !== iframe ? this.setState({ activeIframe: iframe }) : this.setState({ activeIframe: '' });
+    this.state.activeIframe.key === iframe.key ? this.setState({ activeIframe: '' }) : this.setState({ activeIframe: iframe });
     console.log(this.state.activeIframe);
+    this.filterAndDisplayCritiques(iframe);
+  }
+
+  filterAndDisplayCritiques(activeIframe) {
+    this.setState({ activeIframeCritiques: this.state.critiques.filter(critique => critique.iframeID == activeIframe.key) });
   }
 
   render() {
@@ -65,12 +97,23 @@ class Studio extends Component {
           {this.state.iframes.map(iframe =>
             <div key={iframe.key} className="video">
               <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
-              {ReactHtmlParser(iframe.iframe)}
-              <button className={this.state.activeIframe.key === iframe.key ? 'no-show' : "button"} onClick={() => this.activateIframe(iframe)}>Critique</button>
-              {this.state.activeIframe.key === iframe.key ?
-                <Critique firebase={this.props.firebase} activeIframe={this.state.activeIframe} activateIframe={this.activateIframe.bind(this)} user={this.props.user}/> : null
-              }
+              <div>{ReactHtmlParser(iframe.iframe)}</div>
 
+              <button className="button" onClick={() => this.activateIframe(iframe)}>Critique</button>
+              <div className={iframe.key === this.state.activeIframe.key ? "critique" : "no-show"}>
+                <div className={iframe.key === this.state.activeIframe.key ? "form" : "no-show"}>
+                  <form onSubmit={() => this.pushCritique()}>
+                    <input className="profile-input" type="text" value={this.state.content} onChange={this.handleCritique}></input>
+                    <button className="button" type="submit">Post</button>
+                  </form>
+                </div>
+                {this.state.activeIframe.key === iframe.key ?
+                  <div>{this.state.activeIframeCritiques.map(critique =>
+                    <div key={critique.key}>{critique.addedBy[0] || critique.addedBy[1]}: {critique.content} {critique.timeAdded[0]} at {critique.timeAdded[1]}</div>
+                  )}</div>: null
+
+                }
+                </div>
             </div>
           )}
 

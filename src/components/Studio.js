@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Performances from './Performances';
 
@@ -30,7 +30,7 @@ class Studio extends Component {
             <li>Copy and paste the iframe here:</li>
           </ul>
           < Performances firebase={this.props.firebase} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} user={this.props.user}/>
-        </div> : null
+        </div> : <Redirect to="/" />
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -36,7 +36,6 @@ class Login extends Component {
       console.log(this.state);
       this.setState({ email: '', password: '' });
       //console.log(this.props.firebase.auth().currentUser.displayName);
-
     }
 
 

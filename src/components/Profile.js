@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 class Profile extends Component {
@@ -21,7 +21,9 @@ class Profile extends Component {
     this.iframesRef.on('child_added', snapshot => {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
-      this.setState({ iframes: this.state.iframes.concat( iframe ), currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
+      if (this.props.user) {
+        this.setState({ iframes: this.state.iframes.concat( iframe ), currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
+      }
     });
     //console.log(this.props.user.photoUrl);
   }
@@ -116,18 +118,17 @@ class Profile extends Component {
               <button className="button" type="submit">Submit</button>
             </form> :
             null }
-
-        </div> :
-        <p>Please sign in.</p>
+            <h2>My Performances</h2>
+            {this.state.currentUserIframes.map(iframe =>
+              <div key={iframe.key} className="video">
+                  <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>
+                  {ReactHtmlParser(iframe.iframe)}
+                  <div>Critique will go here</div>
+              </div>
+            )}
+        </div> : <Redirect to="/" />
       }
-      <h2>My Performances</h2>
-      {this.state.currentUserIframes.map(iframe =>
-        <div key={iframe.key} className="video">
-            <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>
-            {ReactHtmlParser(iframe.iframe)}
-            <div>Critique will go here</div>
-        </div>
-      )}
+
       </div>
     );
   }

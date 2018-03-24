@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import * as firebase from 'firebase';
 import Landing from './components/Landing';
 import Studio from './components/Studio';
@@ -33,6 +33,7 @@ class App extends Component {
   signOut() {
     firebase.auth().signOut().then(function() {
       alert('Sign out successful.');
+
     }).catch(function(error) {
       // An error occurred
     });
@@ -44,7 +45,7 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Critique My Performance</h1>
           {!firebase.auth().currentUser ?
-            <Login firebase={firebase} /> :
+            <Login firebase={firebase} user={this.state.user}/> :
               <div className="links">
                 <Link className="link" to={'/profile'}>My Profile</Link>
                 <Link className="link" to={'/studio'}>The Studio</Link>

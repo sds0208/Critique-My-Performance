@@ -30,15 +30,6 @@ class App extends Component {
     if (user !== null) {console.log(user.displayName)};
   }
 
-  signOut() {
-    firebase.auth().signOut().then(function() {
-      alert('Sign out successful.');
-
-    }).catch(function(error) {
-      // An error occurred
-    });
-  }
-
   render() {
     return (
       <div className="App">
@@ -52,12 +43,6 @@ class App extends Component {
               </div>
           }
         </header>
-        {firebase.auth().currentUser ?
-          <div className="name-sign-out">
-            <p>Signed in as {this.state.user.displayName ? this.state.user.displayName : this.state.user.email}</p>
-            <button className="button" onClick={this.signOut}>Sign Out</button>
-          </div> : null
-        }
         <Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user}/>
         <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user}/> )} />
         <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user}/> )} />

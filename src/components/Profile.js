@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link, Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import SignOut from './SignOut';
 
 class Profile extends Component {
   constructor(props) {
@@ -73,6 +74,7 @@ class Profile extends Component {
       <div className="Profile">
       {this.props.user ?
         <div className="edit-profile">
+          <SignOut firebase={this.props.firebase} user={this.props.user}/>
           <h2>Profile</h2>
           {this.props.user.displayName ?
             <div>

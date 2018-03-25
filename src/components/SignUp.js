@@ -61,9 +61,7 @@ class SignUp extends Component {
   render() {
     return (
       <div className="SignUp">
-        <video autoPlay muted loop id="myVideo">
-          <source src="assets/Playing_Acoustic_Guitar.mp4" type="video/mp4" />
-        </video>
+
         <div className="sign-up">
           <p>Sign up today to get feedback from musicians around the world!</p>
           <form onSubmit={(event) => this.createUser(event)} className="sign-up-form">
@@ -75,11 +73,7 @@ class SignUp extends Component {
             <input type="text" value={this.state.newPasswordConfirmation} onChange={this.handlePasswordConfirmation}/>
             <button className="button" type="submit"><Link id="submit-link" to='/'>Sign Up</Link></button>
           </form>
-
         </div>
-        <p className="App-intro">
-          A community of musicians helping musicians.
-        </p>
       </div>
     );
   }

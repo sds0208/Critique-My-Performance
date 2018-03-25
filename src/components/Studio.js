@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Performances from './Performances';
+import SignOut from './SignOut';
 
 class Studio extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Studio extends Component {
     return (
       this.props.user ?
         <div className="Studio">
+          <SignOut firebase={this.props.firebase} user={this.props.user}/>
           <h1>The Studio</h1>
           <p>To post your performance:</p>
           <ul>

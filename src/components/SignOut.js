@@ -18,7 +18,7 @@ class SignOut extends Component {
 
   render() {
     return (
-      <div className="SignUp">
+      <div className="SignOut">
         <div className="name-sign-out">
           <p>Signed in as {this.props.user.displayName ? this.props.user.displayName : this.props.user.email}</p>
           <button className="button" onClick={this.signOut}>Sign Out</button>

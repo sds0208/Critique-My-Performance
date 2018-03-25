@@ -22,12 +22,17 @@ firebase.initializeApp(config);
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { user: '' };
+    this.state = { user: '', activeIframe: '' };
   }
 
   setUser(user) {
     this.setState({ user: user });
     if (user !== null) {console.log(user.displayName)};
+  }
+
+  activateIframe(iframe) {
+    this.state.activeIframe.key === iframe.key ? this.setState({ activeIframe: '' }) : this.setState({ activeIframe: iframe });
+    console.log(this.state.activeIframe);
   }
 
   render() {
@@ -44,8 +49,8 @@ class App extends Component {
           }
         </header>
         <Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user}/>
-        <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user}/> )} />
-        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user}/> )} />
+        <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} /> )} />
+        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} /> )} />
       </div>
     );
   }

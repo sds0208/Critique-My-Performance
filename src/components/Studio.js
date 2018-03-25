@@ -5,18 +5,6 @@ import Performances from './Performances';
 import SignOut from './SignOut';
 
 class Studio extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeIframe: '' };
-    this.activateIframe = this.activateIframe.bind(this);
-  }
-
-
-  activateIframe(iframe) {
-    this.state.activeIframe.key === iframe.key ? this.setState({ activeIframe: '' }) : this.setState({ activeIframe: iframe });
-    console.log(this.state.activeIframe);
-  }
-
 
   render() {
     return (
@@ -31,8 +19,8 @@ class Studio extends Component {
             <li>Select the "Embed" option.</li>
             <li>Copy and paste the iframe here:</li>
           </ul>
-          < Performances firebase={this.props.firebase} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} user={this.props.user}/>
-        </div> : <Redirect to="/" />
+          < Performances firebase={this.props.firebase} activateIframe={this.props.activateIframe.bind(this)} activeIframe={this.props.activeIframe} user={this.props.user}/>
+        </div> : null
     );
   }
 }

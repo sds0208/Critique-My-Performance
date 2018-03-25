@@ -36,12 +36,14 @@ class Critique extends Component {
   pushCritique() {
     console.log(this.state.content);
     const date = new Date();
-    this.critiquesRef.push({
+    let c = {
       content: this.state.content,
       timeAdded: [date.toLocaleDateString(), date.toLocaleTimeString()],
       iframeID: this.props.activeIframe.key,
       addedBy: [this.props.user.displayName, this.props.user.email, this.props.user.uid]
-    });
+    }
+    this.critiquesRef.push(c);
+    this.setState({ activeIframeCritiques: this.state.activeIframeCritiques.concat( c ), critiques: this.state.critiques.concat( c )});
   }
 
 

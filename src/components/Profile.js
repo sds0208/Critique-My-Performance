@@ -6,7 +6,7 @@ import SignOut from './SignOut';
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: '', email: '', photo: '', usernameEdit: false, emailEdit: false, photoEdit: false, iframes: [], currentUserIframes: [] };
+    this.state = { username: '', email: '', photo: '', usernameEdit: false, emailEdit: false, photoEdit: false, iframes: [], currentUserIframes: [], deletedIframe: {} };
     this.iframesRef = this.props.firebase.database().ref('iframes');
     this.handleUsername = this.handleUsername.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
@@ -16,6 +16,7 @@ class Profile extends Component {
     //this.editPhoto = this.editPhoto.bind(this);
     this.showUsernameEdit = this.showUsernameEdit.bind(this);
     this.showEmailEdit = this.showEmailEdit.bind(this);
+    this.deletePerformance = this.deletePerformance.bind(this);
   }
 
   componentDidMount() {
@@ -68,6 +69,12 @@ class Profile extends Component {
   /*showPhotoEdit() {
     this.setState({ photoEdit: true });
   }*/
+
+  deletePerformance(iframe) {
+    this.iframesRef.child(iframe.key).remove();
+    console.log(this.props.activeIframe);
+    this.setState({ deletedIframe: iframe, currentUserIframes: this.state.currentUserIframes.filter( iframe => iframe.key !== this.props.activeIframe.key )});
+  }
 
   render() {
     return(
@@ -126,9 +133,15 @@ class Profile extends Component {
                   <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>
                   {ReactHtmlParser(iframe.iframe)}
                   <div>Critique will go here</div>
+                  <button onClick={() => this.props.activateIframe(iframe)}>{this.props.activeIframe.key === iframe.key ? 'Cancel' : 'Delete Performance'}</button>
+                  {this.props.activeIframe.key ===  iframe.key ?
+                    <div className="delete-task">
+                      <p>Are you sure?</p>
+                      <button onClick={() => this.deletePerformance(iframe)}>Delete</button>
+                    </div> : null }
               </div>
             )}
-        </div> : <Redirect to="/" />
+        </div> : null
       }
 
       </div>

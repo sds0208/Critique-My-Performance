@@ -46,7 +46,6 @@ class Critique extends Component {
     this.setState({ activeIframeCritiques: this.state.activeIframeCritiques.concat( c ), critiques: this.state.critiques.concat( c )});
   }
 
-
   filterAndDisplayCritiques(activeIframe) {
     this.setState({ activeIframeCritiques: this.state.critiques.filter(critique => critique.iframeID === activeIframe.key) });
   }

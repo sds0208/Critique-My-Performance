@@ -49,6 +49,9 @@ class Performances extends Component {
     this.setState({ newIframe: event.target.value.replace("></iframe>", "/>") });
   }
 
+  //deleteCritique(critique) {
+  //}
+
   render() {
     return(
       <div className="Performances">

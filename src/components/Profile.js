@@ -17,6 +17,7 @@ class Profile extends Component {
     this.showUsernameEdit = this.showUsernameEdit.bind(this);
     this.showEmailEdit = this.showEmailEdit.bind(this);
     this.deletePerformance = this.deletePerformance.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,16 @@ class Profile extends Component {
   }
 
   addUsername(username) {
+    const user = this.props.firebase.auth().currentUser;
+    /*var credential;
+
+    // Prompt the user to re-provide their sign-in credentials
+
+    user.reauthenticateWithCredential(credential).then(function() {
+      // User re-authenticated.
+    }).catch(function(error) {
+      // An error happened.
+    });*/
     this.props.firebase.auth().currentUser.updateProfile({displayName: username});
   }
 
@@ -74,6 +85,28 @@ class Profile extends Component {
     this.iframesRef.child(iframe.key).remove();
     console.log(this.props.activeIframe);
     this.setState({ deletedIframe: iframe, currentUserIframes: this.state.currentUserIframes.filter( iframe => iframe.key !== this.props.activeIframe.key )});
+  }
+
+  deleteUser() {
+    const user = this.props.firebase.auth().currentUser;
+    /*var credential;
+
+    // Prompt the user to re-provide their sign-in credentials
+
+    user.reauthenticateWithCredential(credential).then(function() {
+      // User re-authenticated.
+    }).catch(function(error) {
+      // An error happened.
+    });*/
+
+    console.log(user);
+    alert("Are you sure you want to delete your account? This cannot be undone. All of your performances and critiques will also be deleted.");
+    user.delete().then(function() {
+    // User deleted.
+    }).catch(function(error) {
+    // An error happened.
+    });
+    this.state.currentUserIframes.forEach(iframe => this.deletePerformance(iframe));
   }
 
   render() {
@@ -127,6 +160,7 @@ class Profile extends Component {
               <button className="button" type="submit">Submit</button>
             </form> :
             null }
+            <button onClick={() => this.deleteUser()}>Delete Account</button>
             <h2>My Performances</h2>
             {this.state.currentUserIframes.map(iframe =>
               <div key={iframe.key} className="video">

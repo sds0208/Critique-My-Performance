@@ -149,6 +149,14 @@ Link {
   padding-bottom: 3rem;
 }
 
+.instructions {
+  text-align: left;
+}
+
+.instructions h4 {
+  text-align: center;
+}
+
 .edit-profile {
 
 }

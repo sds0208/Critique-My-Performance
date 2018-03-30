@@ -15,6 +15,9 @@ class Performances extends Component {
   }
 
   componentDidMount() {
+    const iframesRef = this.props.firebase.database().ref('iframes');
+    const critiquesRef = this.props.firebase.database().ref('critiques');
+    
     this.iframesRef.on('child_added', snapshot => {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
@@ -63,17 +66,9 @@ class Performances extends Component {
           <div key={iframe.key} className="video">
             <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
             <div>{ReactHtmlParser(iframe.iframe)}</div>
-
             <button className="button" onClick={() => this.props.activateIframe(iframe)}>Critique</button>
             <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
-
-
-
-
-                < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
-
-
-              </div>
+            < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>              </div>
           </div>
         )}
       </div>

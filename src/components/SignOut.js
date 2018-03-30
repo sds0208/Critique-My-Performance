@@ -21,10 +21,8 @@ class SignOut extends Component {
     return (
       <div className="SignOut">
         <div className="name-sign-out">
-          <h5>Signed in as </h5>
-          < Gravatar email={this.props.user.email} size={30}/>
-          {this.props.user.displayName ? "  " + this.props.user.displayName : "  " + this.props.user.email}
-          <br></br>
+          < Gravatar email={this.props.user.email} size={30} className="gravatar-sign-out"/>
+          <div>Signed in as {this.props.user.displayName ? "  " + this.props.user.displayName : "  " + this.props.user.email}</div>
           <button className="button" onClick={this.signOut}>Sign Out</button>
         </div>
       </div>

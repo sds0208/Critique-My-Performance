@@ -37,24 +37,22 @@ class SignUp extends Component {
   }
 
   createUser(event) {
-      /*const isInvalid =
+      event.preventDefault();
+      /*const invalid =
         this.state.newPassword !== this.state.passwordConfirmation ||
         this.state.newPassword === '' ||
-        this.state.newEmail === '' ||
-        this.state.newDisplayName === '';
-      event.preventDefault();*/
-      /*if (!isInvalid) {*/
+        this.state.newEmail === '';
+
+      if (!invalid) {*/
         this.props.firebase.auth().createUserWithEmailAndPassword(this.state.newEmail, this.state.newPassword).catch(function(error) {
-          // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
           alert(error.code + error.message);
-      });/*} else {
+        });
+      /*} else {
         alert('There was an error creating your account. Please try again.')
         this.setState({ newDisplayName: '', newEmail: '', newPassword: '', newPasswordConfirmation: ''});
       }*/
-
-
     }
 
 

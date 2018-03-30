@@ -32,9 +32,22 @@
   margin-top: .5rem;
 }
 
-.name-sign-out p {
-  display: inline;
-  margin-right: .5rem;
+.name-sign-out {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+.name-sign-out div {
+  margin-left: .7rem;
+  margin-right: .7rem;
+  font-size: .75rem;
+  font-weight: bold;
+}
+
+.gravatar-sign-out {
+  border-radius: 50%;
 }
 
 .links {
@@ -166,7 +179,9 @@ Link {
 }
 
 .edit-profile {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-info,

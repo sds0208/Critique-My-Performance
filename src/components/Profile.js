@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import SignOut from './SignOut';
+import Critique from './Critique';
 
 class Profile extends Component {
   constructor(props) {
@@ -53,15 +54,19 @@ class Profile extends Component {
 
   addUsername(username) {
     const user = this.props.firebase.auth().currentUser;
-    /*var credential;
-
+    const userProvidedPassword = prompt("Please enter your password to make this change.");
+    const credential = this.props.firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      userProvidedPassword
+    );
     // Prompt the user to re-provide their sign-in credentials
 
     user.reauthenticateWithCredential(credential).then(function() {
       // User re-authenticated.
+      this.props.firebase.auth().currentUser.updateProfile({displayName: username});
     }).catch(function(error) {
       // An error happened.
-    });*/
+    });
     this.props.firebase.auth().currentUser.updateProfile({displayName: username});
   }
 
@@ -88,20 +93,9 @@ class Profile extends Component {
   }
 
   deleteUser() {
-    const user = this.props.firebase.auth().currentUser;
-    /*var credential;
 
-    // Prompt the user to re-provide their sign-in credentials
-
-    user.reauthenticateWithCredential(credential).then(function() {
-      // User re-authenticated.
-    }).catch(function(error) {
-      // An error happened.
-    });*/
-
-    console.log(user);
     alert("Are you sure you want to delete your account? This cannot be undone. All of your performances and critiques will also be deleted.");
-    user.delete().then(function() {
+    this.props.user.delete().then(function() {
     // User deleted.
     }).catch(function(error) {
     // An error happened.
@@ -160,21 +154,26 @@ class Profile extends Component {
               <button className="button" type="submit">Submit</button>
             </form> :
             null }
-            <button onClick={() => this.deleteUser()}>Delete Account</button>
+
             <h2>My Performances</h2>
             {this.state.currentUserIframes.map(iframe =>
               <div key={iframe.key} className="video">
-                  <h3>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h3>
+                  <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
                   {ReactHtmlParser(iframe.iframe)}
-                  <div>Critique will go here</div>
-                  <button onClick={() => this.props.activateIframe(iframe)}>{this.props.activeIframe.key === iframe.key ? 'Cancel' : 'Delete Performance'}</button>
-                  {this.props.activeIframe.key ===  iframe.key ?
-                    <div className="delete-task">
-                      <p>Are you sure?</p>
-                      <button onClick={() => this.deletePerformance(iframe)}>Delete</button>
-                    </div> : null }
+                  <button className="edit button" onClick={() => this.props.activateIframe(iframe)}>Edit</button>
+
+
+                    <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
+                      < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
+
+                      <button className="delete button" onClick={() => this.deletePerformance(iframe)}>Delete Performance</button>
+                    </div>
               </div>
             )}
+          <div className="delete-account">
+            <p>Want to cancel your account?</p>
+            <button className="delete button" onClick={() => this.deleteUser()}>Cancel My Account</button>
+          </div>
         </div> : null
       }
 

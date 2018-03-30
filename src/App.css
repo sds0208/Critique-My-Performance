@@ -111,6 +111,14 @@
   text-decoration: none;
 }
 
+.edit {
+  margin: 0 auto;
+}
+
+.delete {
+  background-color: red;
+}
+
 .no-show {
   display: none;
 }
@@ -185,11 +193,31 @@ iframe {
   color: black;
 }
 
+.critique-line {
+  padding: .5rem;
+}
+
+.critique-line:nth-child(odd) {
+  background-color: black;
+  color: white;
+}
+
+.critique-line:nth-child(even) {
+  background-color: white;
+  color: black;
+}
+
 .video {
+  display: flex;
+  flex-direction: column;
   margin-top: 3rem;
   background-color: #eff1f4;
   padding: 2rem;
   box-shadow: 0 0 10px black;
+}
+
+.delete-account {
+  margin-top: 5rem;
 }
 
 footer {

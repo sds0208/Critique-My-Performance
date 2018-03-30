@@ -70,7 +70,7 @@ class Performances extends Component {
 
 
 
-                < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activeIframe} user={this.props.user}/>
+                < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
 
 
               </div>

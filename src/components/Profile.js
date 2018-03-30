@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link, Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import Gravatar from 'react-gravatar';
 import SignOut from './SignOut';
 import Critique from './Critique';
 
@@ -110,6 +111,7 @@ class Profile extends Component {
         <div className="edit-profile">
           <SignOut firebase={this.props.firebase} user={this.props.user}/>
           <h2>Profile</h2>
+          < Gravatar email={this.props.user.email} />
           {this.props.user.displayName ?
             <div>
               <div className="profile-info">Username: {this.props.user.displayName}</div>
@@ -158,16 +160,13 @@ class Profile extends Component {
             <h2>My Performances</h2>
             {this.state.currentUserIframes.map(iframe =>
               <div key={iframe.key} className="video">
-                  <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
-                  {ReactHtmlParser(iframe.iframe)}
-                  <button className="edit button" onClick={() => this.props.activateIframe(iframe)}>Edit</button>
-
-
-                    <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
-                      < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
-
-                      <button className="delete button" onClick={() => this.deletePerformance(iframe)}>Delete Performance</button>
-                    </div>
+                <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
+                {ReactHtmlParser(iframe.iframe)}
+                <button className="edit button" onClick={() => this.props.activateIframe(iframe)}>Edit</button>
+                <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
+                  < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
+                  <button className="delete button" onClick={() => this.deletePerformance(iframe)}>Delete Performance</button>
+                </div>
               </div>
             )}
           <div className="delete-account">

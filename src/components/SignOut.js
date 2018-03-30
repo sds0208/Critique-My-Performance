@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
+import Gravatar from 'react-gravatar';
 
 class SignOut extends Component {
   constructor(props) {
@@ -20,7 +21,10 @@ class SignOut extends Component {
     return (
       <div className="SignOut">
         <div className="name-sign-out">
-          <p>Signed in as {this.props.user.displayName ? this.props.user.displayName : this.props.user.email}</p>
+          <h5>Signed in as </h5>
+          < Gravatar email={this.props.user.email} size={30}/>
+          {this.props.user.displayName ? "  " + this.props.user.displayName : "  " + this.props.user.email}
+          <br></br>
           <button className="button" onClick={this.signOut}>Sign Out</button>
         </div>
       </div>

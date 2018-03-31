@@ -14,7 +14,10 @@ class Critique extends Component {
     this.critiquesRef.on('child_added', snapshot => {
       const critique = snapshot.val();
       critique.key = snapshot.key;
-      this.setState({ critiques: this.state.critiques.concat( critique ) });
+      let critiques = this.state.critiques;
+      critiques.push(critique);
+      console.log(critiques);
+      this.setState({ critiques: critiques });
     });
   }
 
@@ -59,7 +62,7 @@ class Critique extends Component {
         </form>
         <div>
         {this.state.activeIframeCritiques.map(critique =>
-          <div className="critique-line" key={critique.key}>{critique.addedBy[0] || critique.addedBy[1]}: {critique.content} {critique.timeAdded[0]} at {critique.timeAdded[1]}</div>
+          <div className="critique-line" key={critique.key}><span className="bold">{critique.addedBy[0] || critique.addedBy[1]}:</span> {critique.content}    <span className="bold">  - on  {critique.timeAdded[0]} at {critique.timeAdded[1]}</span></div>
         )}
         </div>
       </div>

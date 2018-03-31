@@ -21,12 +21,23 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    const iframesRef = this.props.firebase.database().ref('iframes');
+    this.props.firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+      console.log(user);
+    } else {
+      console.log('no user is signed in');
+    }
+});
+    console.log(this.props.firebase.auth().currentUser);
     this.iframesRef.on('child_added', snapshot => {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
+      console.log(iframe, iframe.key);
+      let frames = this.state.iframes;
+      frames.push(iframe);
+      console.log(frames);
       if (this.props.user) {
-        this.setState({ iframes: this.state.iframes.concat( iframe ), currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
+        this.setState({ iframes: frames, currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
       }
     });
   }
@@ -34,6 +45,7 @@ class Profile extends Component {
   handleUsername(event) {
     event.preventDefault();
     this.setState({ username: event.target.value});
+
   }
 
   handleEmail(event) {
@@ -43,11 +55,14 @@ class Profile extends Component {
 
   editEmail(email) {
     console.log(email);
+    console.log(this.props.firebase.auth().currentUser);
     this.props.firebase.auth().currentUser.updateEmail(email);
   }
 
   addUsername(username) {
+    console.log(this.state.username);
     const user = this.props.firebase.auth().currentUser;
+    console.log(this.props.firebase.auth().currentUser);
     user.updateProfile({displayName: username}).then(function() {
       alert("Username Added.").catch(function(error) {
         var errorCode = error.code;
@@ -84,35 +99,36 @@ class Profile extends Component {
 
   render() {
     return(
-      <div className="Profile">
-      {this.props.user ?
-        <div className="edit-profile">
-          <SignOut firebase={this.props.firebase} user={this.props.user}/>
-          <h2>Profile</h2>
-          < Gravatar email={this.props.user.email} />
-          <div>To add or update your profile picture, go to <Link className="link" to={"https://en.gravatar.com/"}>Gravatar</Link></div>
-          <div className="profile-info">Username: {this.props.user.displayName || 'No username yet.'}</div>
-          <button className="button" onClick={() => this.showUsernameEdit()}>Edit</button>
-          {this.state.usernameEdit ?
-            <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
-              <input className="profile-input" type="text" onChange={this.handleUsername}></input>
-              <button className="button" type="submit">Submit</button>
-            </form> : null
-          }
-          <div className="profile-info">Email: {this.props.user.email}</div>
-          <button className="button" onClick={() => this.showEmailEdit()}>Edit</button>
-          {this.state.emailEdit ?
-            <form className="profile-form" onSubmit={() => this.editEmail(this.state.email)}>
-              <input className="profile-input" type="text" onChange={this.handleEmail}></input>
-              <button className="button" type="submit">Submit</button>
-            </form> :
-            null }
-
+      this.props.user ?
+        <div className="Profile">
+          <div className="edit-profile">
+            <SignOut firebase={this.props.firebase} user={this.props.user}/>
+            <h2>Profile</h2>
+            < Gravatar email={this.props.user.email} size={150}/>
+            <div className="profile-info">To add or update your profile picture, go to<a className="link" href="https://en.gravatar.com/">Gravatar</a></div>
+            <div className="profile-info">Username: {this.props.user.displayName || 'No username yet.'}</div>
+            <button className="button" onClick={() => this.showUsernameEdit()}>Edit</button>
+            {this.state.usernameEdit ?
+              <form className="profile-form" onSubmit={() => this.addUsername(this.state.username)}>
+                <input className="profile-input" type="text" onChange={this.handleUsername}></input>
+                <button className="button" type="submit">Submit</button>
+              </form> : null
+            }
+            <div className="profile-info">Email: {this.props.user.email}</div>
+            <button className="button" onClick={() => this.showEmailEdit()}>Edit</button>
+            {this.state.emailEdit ?
+              <form className="profile-form" onSubmit={() => this.editEmail(this.state.email)}>
+                <input className="profile-input" type="text" onChange={this.handleEmail}></input>
+                <button className="button" type="submit">Submit</button>
+              </form> :
+              null }
+          </div>
+          <div className="Performances">
             <h2>My Performances</h2>
             {this.state.currentUserIframes.map(iframe =>
               <div key={iframe.key} className="video">
-                <h5>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</h5>
-                {ReactHtmlParser(iframe.iframe)}
+                <p>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</p>
+                <div className="iframe">{ReactHtmlParser(iframe.iframe)}</div>
                 <button className="edit button" onClick={() => this.props.activateIframe(iframe)}>Edit</button>
                 <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
                   < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
@@ -120,14 +136,12 @@ class Profile extends Component {
                 </div>
               </div>
             )}
+          </div>
           <div className="delete-account">
             <p>Want to cancel your account?</p>
             <button className="delete button" onClick={() => this.deleteUser()}>Cancel My Account</button>
           </div>
         </div> : null
-      }
-
-      </div>
     );
   }
 }

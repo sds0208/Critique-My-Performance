@@ -50,7 +50,7 @@ class App extends Component {
         </header>
         <Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user}/>
         <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} /> )} />
-        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} /> )} />
+        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} /> )} />
       </div>
     );
   }

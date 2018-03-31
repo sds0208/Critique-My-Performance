@@ -136,6 +136,10 @@
   display: none;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 Link {
   text-decoration: none;
 }
@@ -184,10 +188,13 @@ Link {
   align-items: center;
 }
 
-.profile-info,
+.profile-info {
+  margin-top: 1.5rem;
+}
+
 .profile-input {
-  display: inline;
-  margin-right: .5rem;
+  margin-top: 1.5rem;
+  margin-right: .75rem;
 }
 
 .profile-form {
@@ -209,7 +216,12 @@ iframe {
 }
 
 .critique-line {
-  padding: .5rem;
+  padding: .75rem;
+  padding-left: 1.5rem;
+  border-radius: 1rem;
+  text-align: left;
+  margin: .5rem;
+  box-shadow: 0 0 5px black;
 }
 
 .critique-line:nth-child(odd) {
@@ -227,6 +239,7 @@ iframe {
   flex-direction: column;
   margin-top: 3rem;
   background-color: #eff1f4;
+  background: linear-gradient(to bottom right, #66768e, #afc7ed, #66768e, #afc7ed);
   padding: 2rem;
   box-shadow: 0 0 10px black;
 }
@@ -240,4 +253,107 @@ footer {
   bottom: 2rem;
   font-family: 'Rock Salt';
   color: white;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .App-title {
+    font-size: 1.25rem;
+  }
+  
+  .video p {
+    padding: .5rem;
+    width: 380px;
+    font-size: .75rem;
+  }
+
+  iframe {
+    width: 380px;
+    height: 300px;
+    margin: .7rem;
+  }
+
+  .critique-line {
+    font-size: .7rem;
+    width: 340px;
+    margin: 0 auto;
+    margin-top: .8rem;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+
+  .App {
+    font-size: .8rem;
+  }
+
+  .App-header {
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    padding: 20px;
+    color: white;
+  }
+
+  .login {
+    margin: 0 auto;
+    padding-right: 0;
+  }
+
+  .login form,
+  .sign-up-form {
+    font-size: .65rem;
+  }
+
+  .login button,
+  .sign-up button {
+    font-size: .55rem;
+  }
+
+  .name-sign-out div {
+    font-size: .65rem;
+  }
+
+  .name-sign-out button {
+    font-size: .55rem;
+  }
+
+  .gridContainer {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .grid-item {
+    width: 100%;
+  }
+
+  .video {
+    padding: 0;
+    padding-bottom: .75rem;
+  }
+
+  .video p {
+    padding: .5rem;
+    width: 240px;
+    font-size: .75rem;
+  }
+
+  iframe {
+    width: 240px;
+    height: 160px;
+    margin: .7rem;
+  }
+
+  .critique-line {
+    font-size: .7rem;
+    width: 220px;
+    margin: 0 auto;
+    margin-top: .8rem;
+  }
+
+  footer {
+    position: static;
+    padding: 3rem;
+  }
 }

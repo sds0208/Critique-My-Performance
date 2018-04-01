@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import Applause from './Applause';
 import Critique from './Critique';
 
 class Performances extends Component {
@@ -11,7 +12,8 @@ class Performances extends Component {
     this.iframesRef = this.props.firebase.database().ref('iframes');
     this.postVideo = this.postVideo.bind(this);
     this.handleIframe = this.handleIframe.bind(this);
-
+    /*this.findIframe = this.findIframe.bind(this);
+    this.addApplause = this.addApplause.bind(this);*/
   }
 
   componentDidMount() {
@@ -19,10 +21,8 @@ class Performances extends Component {
     this.iframesRef.on('child_added', snapshot => {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
-      console.log(iframe, iframe.key);
       let frames = this.state.iframes;
       frames.push(iframe);
-      console.log(frames);
       this.setState({ iframes: frames });
     });
   }
@@ -35,7 +35,8 @@ class Performances extends Component {
         timeAdded: [date.toLocaleDateString(), date.toLocaleTimeString()],
         userUID: this.props.user.uid,
         userName: this.props.user.displayName,
-        userEmail: this.props.user.email
+        userEmail: this.props.user.email,
+        applause: 0
       });
     } else {
       alert("This is not a valid YouTube or SOUNDCLOUD iframe. Please try again.");
@@ -47,6 +48,17 @@ class Performances extends Component {
     this.setState({ newIframe: event.target.value.replace("></iframe>", "/>") });
   }
 
+
+  //addApplause(iframe) {
+    //this.props.firebase.database().ref().child('/iframes/' + iframe.key + '/applause').push('x');
+  //}
+
+  /*findIframe(iframeKey) {
+    this.state.applauseCounts.find(function(iframe, index) {
+      return iframe[0] == iframeKey ? iframe[1] : 0;
+    });
+  }*/
+
   render() {
     return(
       <div className="Performances">
@@ -56,11 +68,15 @@ class Performances extends Component {
         </form>
         {this.state.iframes.map(iframe =>
           <div key={iframe.key} className="video">
+
             <p>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</p>
             <div className="iframe">{ReactHtmlParser(iframe.iframe)}</div>
             <button className="button" onClick={() => this.props.activateIframe(iframe)}>Critique</button>
+
             <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
-            < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>              </div>
+              < Applause firebase={this.props.firebase} user={this.props.user} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} />
+              < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>
+            </div>
           </div>
         )}
       </div>

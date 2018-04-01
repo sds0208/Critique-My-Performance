@@ -16,7 +16,6 @@ class Critique extends Component {
       critique.key = snapshot.key;
       let critiques = this.state.critiques;
       critiques.push(critique);
-      console.log(critiques);
       this.setState({ critiques: critiques });
     });
   }

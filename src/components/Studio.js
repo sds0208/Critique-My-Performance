@@ -32,7 +32,7 @@ class Studio extends Component {
               </ul>
             </div>
           </div>
-          < Performances firebase={this.props.firebase} activateIframe={this.props.activateIframe.bind(this)} activeIframe={this.props.activeIframe} user={this.props.user}/>
+          < Performances firebase={this.props.firebase} activateIframe={this.props.activateIframe.bind(this)} activeIframe={this.props.activeIframe} user={this.props.user} applaudIframe={this.props.applaudIframe} applaudedIframe={this.props.applaudedIframe}/>
         </div> : null
     );
   }

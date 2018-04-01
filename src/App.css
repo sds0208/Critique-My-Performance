@@ -248,6 +248,25 @@ iframe {
   margin-top: 5rem;
 }
 
+.Applause {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .65rem;
+}
+
+.Applause img {
+  width: 30px;
+  border-radius: 6px;
+  border: 2px solid black;
+  box-shadow: 0 0 10px black;
+  margin-right: 1rem;
+}
+
+.Applause img:hover {
+  cursor: pointer;
+}
+
 footer {
   position: fixed;
   bottom: 2rem;
@@ -260,7 +279,7 @@ footer {
   .App-title {
     font-size: 1.25rem;
   }
-  
+
   .video p {
     padding: .5rem;
     width: 380px;

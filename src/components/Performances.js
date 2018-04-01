@@ -71,7 +71,7 @@ class Performances extends Component {
 
             <p>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</p>
             <div className="iframe">{ReactHtmlParser(iframe.iframe)}</div>
-            <button className="button" onClick={() => this.props.activateIframe(iframe)}>Critique</button>
+            <button className="button" onClick={() => this.props.activateIframe(iframe)}>Critique and/or Applaud</button>
 
             <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
               < Applause firebase={this.props.firebase} user={this.props.user} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} />

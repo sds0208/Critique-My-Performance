@@ -7,7 +7,8 @@ class Critique extends Component {
     this.critiquesRef = this.props.firebase.database().ref('critiques');
     this.handleCritique = this.handleCritique.bind(this);
     this.pushCritique = this.pushCritique.bind(this);
-    this.filterAndDisplayCritiques = this.filterAndDisplayCritiques.bind(this);
+    //this.filterAndDisplayCritiques = this.filterAndDisplayCritiques.bind(this);
+    this.getIframeCritiques = this.getIframeCritiques.bind(this);
   }
 
   componentDidMount() {
@@ -20,11 +21,11 @@ class Critique extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  /*componentWillReceiveProps(nextProps) {
     if (nextProps.activeIframe !== this.props.activeIframe) {
       this.filterAndDisplayCritiques( nextProps.activeIframe );
     }
-  }
+  }*/
 
   //Users can add critique that will belong to the specific video it was added to.
   //Critique will be displayed below each video for that specific video when selected
@@ -45,11 +46,16 @@ class Critique extends Component {
       addedBy: [this.props.user.displayName, this.props.user.email, this.props.user.uid]
     }
     this.critiquesRef.push(c);
-    this.setState({ activeIframeCritiques: this.state.activeIframeCritiques.concat( c ), critiques: this.state.critiques.concat( c )});
   }
 
-  filterAndDisplayCritiques(activeIframe) {
+  /*filterAndDisplayCritiques(activeIframe) {
     this.setState({ activeIframeCritiques: this.state.critiques.filter(critique => critique.iframeID === activeIframe.key) });
+  }*/
+
+  getIframeCritiques(iframe) {
+    let critiqueArray = [];
+    this.state.critiques.forEach(critique => critique.iframeID === iframe.key ? critiqueArray.push(critique) : critiqueArray);
+    return critiqueArray;
   }
 
   render() {
@@ -60,7 +66,7 @@ class Critique extends Component {
           <button className="button" type="submit">Post</button>
         </form>
         <div>
-        {this.state.activeIframeCritiques.map(critique =>
+        {this.getIframeCritiques(this.props.activeIframe).map(critique =>
           <div className="critique-line" key={critique.key}><span className="bold">{critique.addedBy[0] || critique.addedBy[1]}:</span> {critique.content}    <span className="bold">  - on  {critique.timeAdded[0]} at {critique.timeAdded[1]}</span></div>
         )}
         </div>

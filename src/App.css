@@ -253,6 +253,7 @@ iframe {
   justify-content: center;
   align-items: center;
   margin: .65rem;
+  border-top: 1px solid black;
 }
 
 .Applause img {

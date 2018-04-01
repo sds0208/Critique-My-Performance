@@ -27,6 +27,8 @@ class Applause extends Component {
         addedBy: [this.props.user.displayName, this.props.user.email, this.props.user.uid]
       }
       this.applauseRef.push(a);
+    } else {
+      alert("Sorry, you can't applaud your own performance.");
     }
   }
 

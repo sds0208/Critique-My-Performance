@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Performances from './Performances';
 import SignOut from './SignOut';
@@ -32,8 +32,8 @@ class Studio extends Component {
               </ul>
             </div>
           </div>
-          < Performances firebase={this.props.firebase} activateIframe={this.props.activateIframe.bind(this)} activeIframe={this.props.activeIframe} user={this.props.user} applaudIframe={this.props.applaudIframe} applaudedIframe={this.props.applaudedIframe}/>
-        </div> : null
+          < Performances firebase={this.props.firebase} activateIframe={this.props.activateIframe.bind(this)} activeIframe={this.props.activeIframe} user={this.props.user} />
+        </div> : < Redirect to="/" />
     );
   }
 }

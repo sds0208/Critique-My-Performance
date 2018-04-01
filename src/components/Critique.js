@@ -7,7 +7,6 @@ class Critique extends Component {
     this.critiquesRef = this.props.firebase.database().ref('critiques');
     this.handleCritique = this.handleCritique.bind(this);
     this.pushCritique = this.pushCritique.bind(this);
-    //this.filterAndDisplayCritiques = this.filterAndDisplayCritiques.bind(this);
     this.getIframeCritiques = this.getIframeCritiques.bind(this);
   }
 
@@ -20,15 +19,6 @@ class Critique extends Component {
       this.setState({ critiques: critiques });
     });
   }
-
-  /*componentWillReceiveProps(nextProps) {
-    if (nextProps.activeIframe !== this.props.activeIframe) {
-      this.filterAndDisplayCritiques( nextProps.activeIframe );
-    }
-  }*/
-
-  //Users can add critique that will belong to the specific video it was added to.
-  //Critique will be displayed below each video for that specific video when selected
 
   handleCritique(event) {
     event.preventDefault();
@@ -47,10 +37,6 @@ class Critique extends Component {
     }
     this.critiquesRef.push(c);
   }
-
-  /*filterAndDisplayCritiques(activeIframe) {
-    this.setState({ activeIframeCritiques: this.state.critiques.filter(critique => critique.iframeID === activeIframe.key) });
-  }*/
 
   getIframeCritiques(iframe) {
     let critiqueArray = [];

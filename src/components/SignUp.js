@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Login from './Login';
+
 
 class SignUp extends Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class SignUp extends Component {
             <input type="text" value={this.state.newPassword} onChange={this.handlePasswordInput}/>
             Confirm Password:
             <input type="text" value={this.state.newPasswordConfirmation} onChange={this.handlePasswordConfirmation}/>
-            <button className="button" type="submit"><Link id="submit-link" to='/'>Sign Up</Link></button>
+            <button className="button" type="submit">Sign Up</button>
           </form>
         </div>
       </div>

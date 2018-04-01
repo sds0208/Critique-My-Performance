@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Gravatar from 'react-gravatar';
 import SignOut from './SignOut';
@@ -32,10 +32,8 @@ class Profile extends Component {
     this.iframesRef.on('child_added', snapshot => {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
-      console.log(iframe, iframe.key);
       let frames = this.state.iframes;
       frames.push(iframe);
-      console.log(frames);
       if (this.props.user) {
         this.setState({ iframes: frames, currentUserIframes: this.state.iframes.filter(iframe => iframe.userUID === this.props.user.uid) });
       }
@@ -54,15 +52,11 @@ class Profile extends Component {
   }
 
   editEmail(email) {
-    console.log(email);
-    console.log(this.props.firebase.auth().currentUser);
     this.props.firebase.auth().currentUser.updateEmail(email);
   }
 
   addUsername(username) {
-    console.log(this.state.username);
     const user = this.props.firebase.auth().currentUser;
-    console.log(this.props.firebase.auth().currentUser);
     user.updateProfile({displayName: username}).then(function() {
       alert("Username Added.").catch(function(error) {
         var errorCode = error.code;
@@ -82,7 +76,6 @@ class Profile extends Component {
 
   deletePerformance(iframe) {
     this.iframesRef.child(iframe.key).remove();
-    console.log(this.props.activeIframe);
     this.setState({ deletedIframe: iframe, currentUserIframes: this.state.currentUserIframes.filter( iframe => iframe.key !== this.props.activeIframe.key )});
   }
 
@@ -90,7 +83,7 @@ class Profile extends Component {
 
     alert("Are you sure you want to delete your account? This cannot be undone. All of your performances and critiques will also be deleted.");
     this.props.user.delete().then(function() {
-    // User deleted.
+      // User deleted.
     }).catch(function(error) {
     // An error happened.
     });
@@ -141,7 +134,7 @@ class Profile extends Component {
             <p>Want to cancel your account?</p>
             <button className="delete button" onClick={() => this.deleteUser()}>Cancel My Account</button>
           </div>
-        </div> : null
+        </div> : < Redirect to="/" />
     );
   }
 }

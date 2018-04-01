@@ -8,7 +8,6 @@ import Login from './components/Login';
 import Profile from './components/Profile';
 import './App.css';
 
-// Initialize Firebase
 var config = {
   apiKey: "AIzaSyAg7b0VVXDm-Tv0a46ZZwqkjYDZx6gHIpk",
   authDomain: "critique-my-performance.firebaseapp.com",
@@ -22,7 +21,7 @@ firebase.initializeApp(config);
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { user: '', activeIframe: '', applaudedIframe: '' };
+    this.state = { user: '', activeIframe: '' };
   }
 
   setUser(user) {
@@ -33,11 +32,6 @@ class App extends Component {
   activateIframe(iframe) {
     this.state.activeIframe.key === iframe.key ? this.setState({ activeIframe: '' }) : this.setState({ activeIframe: iframe });
     console.log(this.state.activeIframe);
-  }
-
-  applaudIframe(iframe) {
-    this.setState({ applaudedIframe: iframe });
-    console.log(this.state.applaudedIframe);
   }
 
   render() {
@@ -54,8 +48,8 @@ class App extends Component {
           }
         </header>
         <Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user}/>
-        <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} applaudIframe={this.applaudIframe.bind(this)} applaudedIframe={this.state.applaudedIframe} /> )} />
-        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe} applaudIframe={this.applaudIframe.bind(this)} applaudedIframe={this.state.applaudedIframe} /> )} />
+        <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe}  /> )} />
+        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe}  /> )} />
       </div>
     );
   }

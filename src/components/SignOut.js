@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
 
 class SignOut extends Component {
@@ -11,9 +10,8 @@ class SignOut extends Component {
   signOut() {
     this.props.firebase.auth().signOut().then(function() {
       alert('Sign out successful.');
-
     }).catch(function(error) {
-      // An error occurred
+      alert(error.code + error.message);
     });
   }
 

@@ -30,11 +30,37 @@ Another problem I ran into when creating the application was getting all of the 
 
 ### Solution
 
-I changed how my application was grabbing the information from the firebase database in the `ComponentDidMount()` method. I was originally doing the following:
+I changed how my application was grabbing the information from the firebase database in the `componentDidMount()` method. I was originally doing the following:
 
-    `componentDidMount() {
+    componentDidMount() {
+      this.iframesRef.on('child_added', snapshot => {
+      const iframe = snapshot.val();
+      iframe.key = snapshot.key;
+      this.setState({ iframes: this.state.iframes.concat( iframe ) });
+    });
+
+and I changed it to this, which did the trick:
+
     this.iframesRef.on('child_added', snapshot => {
-    const iframe = snapshot.val();
-    iframe.key = snapshot.key;
-    this.setState({ iframes: this.state.iframes.concat( iframe ) });
-    });`
+      const iframe = snapshot.val();
+      iframe.key = snapshot.key;
+      let frames = this.state.iframes;
+      frames.push(iframe);
+      this.setState({ iframes: frames });
+    });
+
+### Problem
+
+How to add critique and applause to specific performances.
+
+### Solution
+
+I considered a couple of different options - #1) Add critique/applause to each performance object in the firebase database, or #2) Add a separate critique and separate applause object that would store all critique and applause. I decided to go with #2. There is a critique object in the database that stores all of the critiques, and each of the critiques stores the unique id for the performance it belongs to. The same concept is used for applause given to a performance.
+
+### Results
+
+Overall, I am happy with how the application turned out. There are still a few more features I would like to add, but I think the application is something that musicians would find value in.
+
+### Conclusion
+
+Going through the process of designing, planning, and building an entire web application on my own has given me confidence that I am able to create things that haven't been created before.     

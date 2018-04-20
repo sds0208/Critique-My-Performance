@@ -4,7 +4,7 @@
 
 [Here is a link to the application](http://critiquemyperformance.herokuapp.com).
 
-![landing page](assets/critique-my-performance-landing.PNG)
+![landing page](public/assets/critique-my-performance-landing.PNG)
 
 ### Technologies used
 

@@ -26,6 +26,14 @@ The first problem I had was learning how to use Firebase Authentication.
 
 While there is quite a bit of documentation available for Firebase Authentication, I was unfamiliar with it when starting the project, and it took some time to figure out how to add and change users' information. Between the documentation and a few YouTube tutorials, I was able to get functional authentication in place.
 
+![profile page](public/assets/profile-1.PNG)
+
+![profile page](public/assets/profile-2.PNG)
+
+![profile page](public/assets/profile-3.PNG)
+
+![profile page](public/assets/profile-4.PNG)
+
 ### Problem
 
 Another problem I ran into when creating the application was getting all of the performances to display every time on the studio page. When first visiting the studio page, only the last performance would show up, until refreshing the page, and then all the performances showed up.
@@ -51,6 +59,8 @@ and I changed it to this, which did the trick:
       this.setState({ iframes: frames });
     });
 
+![studio page](public/assets/studio-1.PNG)
+
 ### Problem
 
 How to add critique and applause to specific performances.
@@ -58,6 +68,10 @@ How to add critique and applause to specific performances.
 ### Solution
 
 I considered a couple of different options - #1) Add critique/applause to each performance object in the firebase database, or #2) Add a separate critique and separate applause object that would store all critique and applause. I decided to go with #2. There is a critique object in the database that stores all of the critiques, and each of the critiques stores the unique id for the performance it belongs to. The same concept is used for applause given to a performance.
+
+![studio page](public/assets/studio-2.PNG)
+
+![profile page](public/assets/profile-3.PNG)
 
 ### Results
 

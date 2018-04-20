@@ -21,21 +21,12 @@ class Login extends Component {
   }
 
   loginUser(event) {
-    /*const isInvalid =
-      this.state.newPassword !== this.state.passwordConfirmation ||
-      this.state.newPassword === '' ||
-      this.state.newEmail === '' ||
-      this.state.newDisplayName === '';*/
       event.preventDefault();
       this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
+        console.log(error.code);
+        alert(error.message);
       });
-      console.log(this.state);
       this.setState({ email: '', password: '' });
-      //console.log(this.props.firebase.auth().currentUser.displayName);
     }
 
 
@@ -47,7 +38,7 @@ class Login extends Component {
             Email:
             <input type="text" value={this.state.email} onChange={this.handleEmail}/>
             Password:
-            <input type="text" value={this.state.password} onChange={this.handlePassword}/>
+            <input type="password" value={this.state.password} onChange={this.handlePassword}/>
             <button className="button" type="submit">Sign In</button>
           </form>
         </div>

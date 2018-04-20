@@ -39,21 +39,19 @@ class SignUp extends Component {
 
   createUser(event) {
       event.preventDefault();
-      /*const invalid =
-        this.state.newPassword !== this.state.passwordConfirmation ||
-        this.state.newPassword === '' ||
-        this.state.newEmail === '';
-
-      if (!invalid) {*/
-        this.props.firebase.auth().createUserWithEmailAndPassword(this.state.newEmail, this.state.newPassword).catch(function(error) {
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          alert(error.code + error.message);
-        });
-      /*} else {
+      const isInvalid =
+        this.state.newPassword !== this.state.newPasswordConfirmation ||
+        this.state.newPassword === null ||
+        this.state.newEmail.includes('@') === false;
+        if (!isInvalid) {
+          this.props.firebase.auth().createUserWithEmailAndPassword(this.state.newEmail, this.state.newPassword).catch(function(error) {
+            console.log(error.code);
+            alert(error.message);
+          });
+        } else {
         alert('There was an error creating your account. Please try again.')
         this.setState({ newDisplayName: '', newEmail: '', newPassword: '', newPasswordConfirmation: ''});
-      }*/
+      }
     }
 
 
@@ -67,9 +65,9 @@ class SignUp extends Component {
             Email:
             <input type="text" value={this.state.newEmail} onChange={this.handleEmailInput}/>
             Password:
-            <input type="text" value={this.state.newPassword} onChange={this.handlePasswordInput}/>
+            <input type="password" value={this.state.newPassword} onChange={this.handlePasswordInput}/>
             Confirm Password:
-            <input type="text" value={this.state.newPasswordConfirmation} onChange={this.handlePasswordConfirmation}/>
+            <input type="password" value={this.state.newPasswordConfirmation} onChange={this.handlePasswordConfirmation}/>
             <button className="button" type="submit">Sign Up</button>
           </form>
         </div>

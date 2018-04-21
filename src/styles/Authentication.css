@@ -1,0 +1,87 @@
+.signed-in-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-sign-out {
+  margin-top: .5rem;
+}
+
+.name-sign-out {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+.name-sign-out div {
+  margin-left: .7rem;
+  margin-right: .7rem;
+  font-size: .75rem;
+  font-weight: bold;
+}
+
+.gravatar-sign-out {
+  border-radius: 50%;
+}
+
+.SignUp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #eff1f4;
+  width: 100%;
+}
+
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  color: black;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding-right: 1.5rem;
+  border-radius: 7px;
+  max-width: 250px;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: .8rem;
+}
+
+@media only screen and (max-width: 520px) {
+
+  .login {
+    margin: 0 auto;
+    padding-right: 0;
+  }
+
+  .login form,
+  .sign-up-form {
+    font-size: .65rem;
+  }
+
+  .login button,
+  .sign-up button {
+    font-size: .55rem;
+  }
+
+  .name-sign-out div {
+    font-size: .65rem;
+  }
+
+  .name-sign-out button {
+    font-size: .55rem;
+  }
+}

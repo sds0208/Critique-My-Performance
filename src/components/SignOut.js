@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Gravatar from 'react-gravatar';
+import '../styles/Authentication.css';
 
 class SignOut extends Component {
   constructor(props) {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import SignUp from './SignUp';
 import Studio from './Studio';
+import '../styles/Landing.css';
 
 class Landing extends Component {
 

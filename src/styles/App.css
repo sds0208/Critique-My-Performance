@@ -1,0 +1,145 @@
+.App {
+  text-align: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Raleway';
+  background-color: black;
+}
+
+.App-header {
+  display: flex;
+  height: 20%;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5rem;
+  font-family: 'Rock Salt';
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  margin: .5rem;
+}
+
+.button {
+  max-width: 100px;
+  margin: 0 auto;
+  margin-top: .5rem;
+  background-color: darkgrey;
+  border: none;
+  padding: .5rem;
+  border-radius: 3px;
+  box-shadow: 0 0 10px darkgrey;
+  color: white;
+  font-family: 'Raleway';
+  text-decoration: none;
+}
+
+.edit {
+  margin: 0 auto;
+}
+
+.delete {
+  background-color: red;
+}
+
+.no-show {
+  display: none;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+Link {
+  text-decoration: none;
+}
+
+.App-intro {
+  font-size: 1.5rem;
+  font-family: 'Rock Salt';
+}
+
+@media only screen and (max-width: 800px) {
+
+  .App-title {
+    font-size: 1.25rem;
+  }
+
+  .video p {
+    padding: .5rem;
+    width: 380px;
+    font-size: .75rem;
+  }
+
+  iframe {
+    width: 380px;
+    height: 300px;
+    margin: .7rem;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+
+  .App {
+    font-size: .8rem;
+  }
+
+  .App-header {
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    padding: 20px;
+    color: white;
+  }
+
+  .login {
+    margin: 0 auto;
+    padding-right: 0;
+  }
+
+  .login form,
+  .sign-up-form {
+    font-size: .65rem;
+  }
+
+  .login button,
+  .sign-up button {
+    font-size: .55rem;
+  }
+
+  .name-sign-out div {
+    font-size: .65rem;
+  }
+
+  .name-sign-out button {
+    font-size: .55rem;
+  }
+
+  .video {
+    padding: 0;
+    padding-bottom: .75rem;
+  }
+
+  .video p {
+    padding: .5rem;
+    width: 240px;
+    font-size: .75rem;
+  }
+
+  iframe {
+    width: 240px;
+    height: 160px;
+    margin: .7rem;
+  }
+}

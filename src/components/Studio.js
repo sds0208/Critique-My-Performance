@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Performances from './Performances';
 import SignOut from './SignOut';
+import '../styles/Studio.css';
 
 class Studio extends Component {
 

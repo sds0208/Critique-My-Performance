@@ -4,6 +4,7 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 import Gravatar from 'react-gravatar';
 import SignOut from './SignOut';
 import Critique from './Critique';
+import '../styles/Profile.css';
 
 class Profile extends Component {
   constructor(props) {

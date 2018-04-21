@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 import Applause from './Applause';
 import Critique from './Critique';
+import '../styles/Performances.css';
 
 class Performances extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Performances extends Component {
           <div key={iframe.key} className="video">
             <p>Posted by {iframe.userName || iframe.userEmail} on {iframe.timeAdded[0]} at {iframe.timeAdded[1]}</p>
             <div className="iframe">{ReactHtmlParser(iframe.iframe)}</div>
-            <button className="button" onClick={() => this.props.activateIframe(iframe)}>Critique and/or Applaud</button>
+            <button className="button" onClick={() => this.props.activateIframe(iframe)}>Critique</button>
             <div className={iframe.key === this.props.activeIframe.key ? "critique" : "no-show"}>
               < Applause firebase={this.props.firebase} user={this.props.user} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} />
               < Critique firebase={this.props.firebase} activeIframe={this.props.activeIframe} activateIframe={this.props.activateIframe} user={this.props.user}/>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/Applause.css';
 
 class Applause extends Component {
   constructor(props) {

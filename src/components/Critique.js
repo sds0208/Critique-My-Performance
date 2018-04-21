@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/Critique.css';
 
 class Critique extends Component {
   constructor(props) {

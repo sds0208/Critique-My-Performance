@@ -1,0 +1,16 @@
+.Studio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  padding-bottom: 3rem;
+}
+
+.instructions {
+  text-align: left;
+}
+
+.instructions h4 {
+  text-align: center;
+}

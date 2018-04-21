@@ -6,7 +6,7 @@ import Studio from './components/Studio';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Profile from './components/Profile';
-import './App.css';
+import './styles/App.css';
 
 var config = {
   apiKey: "AIzaSyAg7b0VVXDm-Tv0a46ZZwqkjYDZx6gHIpk",

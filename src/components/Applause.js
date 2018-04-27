@@ -42,7 +42,7 @@ class Applause extends Component {
   render() {
     return (
       <div className="Applause">
-        <div onClick={() => this.pushApplause()} ><img className="Applause" src="/assets/clapping-hands.png"></img></div>
+        <div onClick={() => this.pushApplause()} ><img className="Applause" src="/assets/clapping-hands.png" alt="clapping hands"></img></div>
         <div className="applause-count">Applause Count: {this.getApplauseCounts(this.props.activeIframe)}</div>
       </div>
     );

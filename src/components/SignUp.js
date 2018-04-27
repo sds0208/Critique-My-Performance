@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Login from './Login';
 import '../styles/Authentication.css';
 
 class SignUp extends Component {
@@ -45,7 +43,6 @@ class SignUp extends Component {
         this.state.newEmail.includes('@') === false;
         if (!isInvalid) {
           this.props.firebase.auth().createUserWithEmailAndPassword(this.state.newEmail, this.state.newPassword).catch(function(error) {
-            console.log(error.code);
             alert(error.message);
           });
         } else {

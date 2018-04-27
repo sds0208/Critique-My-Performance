@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/Authentication.css';
 
 class Login extends Component {
@@ -24,7 +23,6 @@ class Login extends Component {
   loginUser(event) {
       event.preventDefault();
       this.props.firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).catch(function(error) {
-        console.log(error.code);
         alert(error.message);
       });
       this.setState({ email: '', password: '' });

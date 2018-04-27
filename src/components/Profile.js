@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 import Gravatar from 'react-gravatar';
 import SignOut from './SignOut';
 import Critique from './Critique';
@@ -22,14 +22,6 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-      console.log(user);
-    } else {
-      console.log('no user is signed in');
-    }
-});
-    console.log(this.props.firebase.auth().currentUser);
     this.iframesRef.on('child_added', snapshot => {
       const iframe = snapshot.val();
       iframe.key = snapshot.key;
@@ -60,9 +52,7 @@ class Profile extends Component {
     const user = this.props.firebase.auth().currentUser;
     user.updateProfile({displayName: username}).then(function() {
       alert("Username Added.").catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        alert(error.code + error.message);
+        alert(error.message);
       });
     });
   }
@@ -81,12 +71,10 @@ class Profile extends Component {
   }
 
   deleteUser() {
-
     alert("Are you sure you want to delete your account? This cannot be undone. All of your performances and critiques will also be deleted.");
     this.props.user.delete().then(function() {
-      // User deleted.
     }).catch(function(error) {
-    // An error happened.
+      alert(error.message);
     });
     this.state.currentUserIframes.forEach(iframe => this.deletePerformance(iframe));
   }

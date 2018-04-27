@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import * as firebase from 'firebase';
 import Landing from './components/Landing';
 import Studio from './components/Studio';
-import SignUp from './components/SignUp';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import './styles/App.css';
@@ -47,9 +46,9 @@ class App extends Component {
               </div>
           }
         </header>
-        <Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user}/>
-        <Route exact path="/studio" render={(props) => ( <Studio firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe}  /> )} />
-        <Route exact path="/profile" render={(props) => ( <Profile firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe}  /> )} />
+        <Route exact path="/" render={(props) => ( < Landing firebase={firebase} setUser={this.setUser.bind(this)} user={this.state.user} /> )} />
+        <Route path="/studio" render={(props) => ( < Studio firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe}  /> )} />
+        <Route path="/profile" render={(props) => ( < Profile firebase={firebase} user={this.state.user} setUser={this.setUser.bind(this)} activateIframe={this.activateIframe.bind(this)} activeIframe={this.state.activeIframe}  /> )} />
       </div>
     );
   }

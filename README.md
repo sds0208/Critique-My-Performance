@@ -73,6 +73,15 @@ I considered a couple of different options - #1) Add critique/applause to each p
 
 ![profile page](public/assets/profile-3.PNG)
 
+### Problem
+
+This error:
+    Error parsing header X-XSS-Protection: 1; mode=block; report=https://www.google.com/appserve/security-bugs/log/youtube: insecure reporting URL for secure page at character position 22. The default protections will be applied.
+
+### Solution
+
+After researching this error, all of the information I could find indicated that this was a Chrome specific bug that is being worked on. From what I can tell, there isn't anything I can do to fix it. 
+
 ### Results
 
 Overall, I am happy with how the application turned out. There are still a few more features I would like to add, but I think the application is something that musicians would find value in.

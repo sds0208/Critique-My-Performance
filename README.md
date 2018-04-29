@@ -14,7 +14,9 @@
 
 ### Explanation
 
-Critique My Performance is my capstone project for Bloc. For this project, I was able to create anything I wanted, using any technologies I wanted to. Since I am a musician, I decided to create an application that had something to do with music. After weighing a few different options, I decided on a music critique app.  
+Critique My Performance is a music performance critique application. I came up with the idea for the application because I wanted to create a positive performance community for amateur/student musicians. A huge part of being a musician is taking in criticism and using it to improve. Critique My Performance has the potential to provide a huge network of support to the music community. 
+
+The process of designing and building the application was fun. I first came up with quite a few user stories how long it would take to complete each one. After adding up all of the hours, I eliminated a few of them and picked out the most important ones along with a few extras. From there, I drew some basic wireframe sketches with pencil and paper and got to work.  
 
 In the application, users must create an account to access The Studio and Profile pages. The authentication is handled through Firebase.  Once a user has created an account, they are able to add a photo using Gravatar, add a username, and post video or audio performances using the YouTube or SoundCloud embed option. All users' performances are posted in The Studio, and users are able to add critique to each performance.
 
@@ -80,7 +82,7 @@ This error:
 
 ### Solution
 
-After researching this error, all of the information I could find indicated that this was a Chrome specific bug that is being worked on. From what I can tell, there isn't anything I can do to fix it. 
+After researching this error, all of the information I could find indicated that this was a Chrome specific bug that is being worked on. From what I can tell, there isn't anything I can do to fix it.
 
 ### Results
 
